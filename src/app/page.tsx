@@ -158,7 +158,13 @@ function Feature({
   );
 }
 
-function Differentiator({ title, description }: { title: string; description: string }): React.ReactElement {
+function Differentiator({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}): React.ReactElement {
   return (
     <div className="rounded-lg border border-zinc-800 p-6">
       <h3 className="mb-2 font-semibold">{title}</h3>

@@ -2,19 +2,19 @@
 
 ## Now
 
-- [ ] Build chat interface with Vercel AI SDK (F-001)
-- [ ] Create API route for Claude streaming
+- [ ] n8n MCP integration (F-002)
+- [ ] Set up Supabase project + database schema
 
 ## Up Next
 
-- [ ] Set up Supabase project + database schema
 - [ ] Configure environment variables (.env.local)
-- [ ] n8n MCP integration (F-002)
+- [ ] Workflow generation (F-003)
 - [ ] Workflow preview component (F-007)
 - [ ] Deploy to Vercel
 
 ## Done (2026-01)
 
+- [x] **F-001 Chat Interface** - Streaming chat with Claude AI (7/7 criteria)
 - [x] Project structure created
 - [x] Vibe-coding setup initialized
 - [x] Feature documentation created (F-001 to F-008)

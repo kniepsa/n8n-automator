@@ -14,13 +14,13 @@ As a user, I want to describe what automation I need in plain English so that I 
 
 ## Acceptance Criteria
 
-- [ ] Chat input field with send button
-- [ ] Messages display in conversation format
-- [ ] Streaming responses (real-time text appearance)
-- [ ] Loading indicator while waiting for response
-- [ ] Error handling with user-friendly messages
-- [ ] Responsive design (mobile + desktop)
-- [ ] Keyboard shortcuts (Enter to send, Shift+Enter for newline)
+- [x] Chat input field with send button
+- [x] Messages display in conversation format
+- [x] Streaming responses (real-time text appearance)
+- [x] Loading indicator while waiting for response
+- [x] Error handling with user-friendly messages
+- [x] Responsive design (mobile + desktop)
+- [x] Keyboard shortcuts (Enter to send, Shift+Enter for newline)
 
 ## Technical Implementation
 
