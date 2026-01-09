@@ -35,6 +35,7 @@ User Chat → Next.js API → Claude + n8n MCP → User's n8n Instance → Workf
 - Claude + MCP produces better workflows than n8n Native (1-2 vs 4-5 iterations)
 - shadcn init with Tailwind v4 requires manual npm install (pnpm not found on some systems)
 - n8n Chrome extensions fragmented market: n8n Master (5K users), Vibe n8n (2K), AgentCraft (737)
+- macOS without Homebrew: download gh CLI binary from GitHub releases, extract to ~/bin/
 
 ## Commands
 

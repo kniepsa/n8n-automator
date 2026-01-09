@@ -1,6 +1,6 @@
 import { WaitlistForm } from '@/components/waitlist-form';
 
-export default function Home() {
+export default function Home(): React.ReactElement {
   return (
     <div className="flex min-h-screen flex-col bg-black text-white">
       {/* Hero Section */}
@@ -129,7 +129,7 @@ export default function Home() {
   );
 }
 
-function PainPoint({ quote, source }: { quote: string; source: string }) {
+function PainPoint({ quote, source }: { quote: string; source: string }): React.ReactElement {
   return (
     <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-6">
       <p className="mb-3 text-zinc-300">&ldquo;{quote}&rdquo;</p>
@@ -146,7 +146,7 @@ function Feature({
   step: string;
   title: string;
   description: string;
-}) {
+}): React.ReactElement {
   return (
     <div className="text-center">
       <div className="mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-zinc-800 text-lg font-semibold">
@@ -158,7 +158,7 @@ function Feature({
   );
 }
 
-function Differentiator({ title, description }: { title: string; description: string }) {
+function Differentiator({ title, description }: { title: string; description: string }): React.ReactElement {
   return (
     <div className="rounded-lg border border-zinc-800 p-6">
       <h3 className="mb-2 font-semibold">{title}</h3>

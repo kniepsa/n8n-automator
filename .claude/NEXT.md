@@ -28,3 +28,5 @@
 - [x] Comprehensive market validation research completed
 - [x] Competitor analysis: 5+ Chrome extensions mapped with gaps
 - [x] Distribution channels identified (n8n templates, affiliates, creators)
+- [x] GitHub CLI installed (v2.83.2 to ~/bin/)
+- [x] Shipped to GitHub: https://github.com/kniepsa/n8n-automator

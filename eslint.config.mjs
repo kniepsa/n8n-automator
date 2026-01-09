@@ -3,7 +3,21 @@ import typescript from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 
 export default [
+  {
+    ignores: ['.next/**', 'node_modules/**', '*.config.*'],
+  },
   js.configs.recommended,
+  {
+    files: ['**/*.ts', '**/*.tsx'],
+    languageOptions: {
+      globals: {
+        React: 'readonly',
+        setTimeout: 'readonly',
+        console: 'readonly',
+        process: 'readonly',
+      },
+    },
+  },
   {
     files: ['**/*.ts', '**/*.tsx'],
     languageOptions: {
