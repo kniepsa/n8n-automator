@@ -29,13 +29,17 @@ User Chat → Next.js API → Claude + n8n MCP → User's n8n Instance → Workf
 - Supabase RLS requires .select() after .insert() to return data
 - Next.js caches aggressively - use revalidatePath()
 - n8n MCP server uses stdio transport - may need HTTP wrapper for cloud
-- Vercel AI SDK useChat() requires 'ai' package not '@ai-sdk/react'
+- **AI SDK v6**: `useChat` from `@ai-sdk/react`, use `DefaultChatTransport({ api: '/api/chat' })`
+- **AI SDK v6**: `Message` → `UIMessage` with `parts` array, use `convertToModelMessages()` in API route
+- **AI SDK v6**: `toDataStreamResponse()` → `toUIMessageStreamResponse()` for streaming
+- **AI SDK v6**: `sendMessage({ text: input })` instead of `handleSubmit(e)` pattern
 - n8n Native AI Builder is Cloud-only - NOT available for self-hosted n8n
 - create-next-app conflicts with existing files - backup/restore needed
 - Claude + MCP produces better workflows than n8n Native (1-2 vs 4-5 iterations)
 - shadcn init with Tailwind v4 requires manual npm install (pnpm not found on some systems)
 - n8n Chrome extensions fragmented market: n8n Master (5K users), Vibe n8n (2K), AgentCraft (737)
 - macOS without Homebrew: download gh CLI binary from GitHub releases, extract to ~/bin/
+- ESLint flat config: add `ignores: ['.next/**', 'node_modules/**']` as first item to avoid linting build artifacts
 
 ## Commands
 
