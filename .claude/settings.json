@@ -1,0 +1,57 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx prettier --write \"$CLAUDE_FILE_PATH\" 2>/dev/null || true"
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/security-scan.sh \"$CLAUDE_FILE_PATH\" 2>/dev/null &"
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/quality-batch.sh \"$CLAUDE_FILE_PATH\" 2>/dev/null &"
+          }
+        ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx prettier --write \"$CLAUDE_FILE_PATH\" 2>/dev/null || true"
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/security-scan.sh \"$CLAUDE_FILE_PATH\" 2>/dev/null &"
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/quality-batch.sh \"$CLAUDE_FILE_PATH\" 2>/dev/null &"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/quality-summary.sh 2>/dev/null; say 'Done'"
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "ralph-wiggum@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true,
+    "vercel@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true
+  }
+}
