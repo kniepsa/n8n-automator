@@ -2,18 +2,23 @@
 
 ## Now
 
-- [ ] n8n MCP integration (F-002)
 - [ ] Set up Supabase project + database schema
 
 ## Up Next
 
-- [ ] Configure environment variables (.env.local)
-- [ ] Workflow generation (F-003)
 - [ ] Workflow preview component (F-007)
+- [ ] Authentication (F-004)
+- [ ] n8n Connection settings UI (F-005)
 - [ ] Deploy to Vercel
+
+## Backlog
+
+- [ ] Live MCP Access - Context7/Serper (F-009) - Potential paid feature
 
 ## Done (2026-01)
 
+- [x] **F-003 Workflow Generation** - Fast/Thorough modes, pre-baked node examples, mode selector UI
+- [x] **F-002 n8n MCP Integration** - Claude can list/create/update workflows via MCP
 - [x] **F-001 Chat Interface** - Streaming chat with Claude AI (7/7 criteria)
 - [x] Project structure created
 - [x] Vibe-coding setup initialized

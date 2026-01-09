@@ -40,6 +40,8 @@ User Chat → Next.js API → Claude + n8n MCP → User's n8n Instance → Workf
 - n8n Chrome extensions fragmented market: n8n Master (5K users), Vibe n8n (2K), AgentCraft (737)
 - macOS without Homebrew: download gh CLI binary from GitHub releases, extract to ~/bin/
 - ESLint flat config: add `ignores: ['.next/**', 'node_modules/**']` as first item to avoid linting build artifacts
+- **MCP n8n-builder**: N8N_HOST must be base URL without `/api/v1` (e.g., `https://n8n.example.com`)
+- **AI SDK v6 tools**: Use `inputSchema` not `parameters`, and `stopWhen: stepCountIs(5)` not `maxSteps`
 
 ## Commands
 
