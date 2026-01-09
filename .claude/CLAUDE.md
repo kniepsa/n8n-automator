@@ -42,6 +42,8 @@ User Chat → Next.js API → Claude + n8n MCP → User's n8n Instance → Workf
 - ESLint flat config: add `ignores: ['.next/**', 'node_modules/**']` as first item to avoid linting build artifacts
 - **MCP n8n-builder**: N8N_HOST must be base URL without `/api/v1` (e.g., `https://n8n.example.com`)
 - **AI SDK v6 tools**: Use `inputSchema` not `parameters`, and `stopWhen: stepCountIs(5)` not `maxSteps`
+- **AI SDK v6 transport**: Pass extra body params via `DefaultChatTransport({ api: '/api/chat', body: { mode } })`
+- **Context7 MCP**: n8n docs at `/n8n-io/n8n-docs` (811 snippets, benchmark 74.6) - good for node JSON examples
 
 ## Commands
 
