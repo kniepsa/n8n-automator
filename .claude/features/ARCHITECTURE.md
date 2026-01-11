@@ -67,8 +67,9 @@
 
 ### Credential Security
 
-- **n8n API Keys**: Encrypted at rest in Supabase
-- **Never Exposed**: Keys never sent to frontend
+- **n8n API Keys**: Encrypted at rest using AES-256-GCM
+- **Encryption Key**: `ENCRYPTION_SECRET` env var (256-bit)
+- **Never Exposed**: Keys never sent to frontend (only `has_api_key` boolean)
 - **Per-Request**: Keys decrypted only when calling n8n API
 
 ## Database Schema

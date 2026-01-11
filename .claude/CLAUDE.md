@@ -50,6 +50,7 @@ User Chat → Next.js API → Claude + n8n MCP → User's n8n Instance → Workf
 - **Next.js 16**: `middleware.ts` is deprecated, shows warning to use "proxy" instead (still works)
 - **Supabase API Keys**: New dashboard shows publishable/secret keys; use "Legacy anon, service_role" link for traditional anon key
 - **useSearchParams()**: Must wrap component using this hook in `<Suspense>` boundary or build fails
+- **AES-256-GCM encryption**: Requires `ENCRYPTION_SECRET` env var (generate with `openssl rand -hex 32`)
 
 ## Commands
 
