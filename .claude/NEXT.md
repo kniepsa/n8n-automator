@@ -2,21 +2,21 @@
 
 ## Now
 
-- [ ] n8n Connection settings UI (F-005) - Let users configure their n8n instance
+- [ ] Add more templates (access n8n marketplace for inspiration)
 
 ## Up Next
 
-- [ ] Add more templates (access n8n marketplace for inspiration)
 - [ ] Google OAuth configuration (Supabase Dashboard + Google Cloud Console)
+- [ ] Live MCP Access - Context7/Serper (F-009) - Potential paid feature
 
 ## Backlog
 
-- [ ] Live MCP Access - Context7/Serper (F-009) - Potential paid feature
 - [ ] Custom template builder for power users
 - [ ] Template marketplace (user submissions)
 
 ## Done (2026-01)
 
+- [x] **F-005 n8n Connection** - Settings page with URL/API key, test connection, AES-256 encryption
 - [x] **F-004 Authentication** - Supabase Auth with email/password, Google OAuth, protected routes
 - [x] **Vercel Deploy** - Production at https://n8n-automator.vercel.app
 - [x] **Template MVP** - 3 sophisticated templates, wizard UI, visual preview, one-click deploy

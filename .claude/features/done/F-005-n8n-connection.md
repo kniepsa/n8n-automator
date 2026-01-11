@@ -14,13 +14,13 @@ As a user, I want to connect my n8n instance by providing my URL and API key so 
 
 ## Acceptance Criteria
 
-- [ ] Form to enter n8n instance URL
-- [ ] Form to enter n8n API key (masked input)
-- [ ] Test connection button
-- [ ] Success/failure feedback
-- [ ] Save credentials securely
-- [ ] Show connection status in UI
-- [ ] Instructions for getting API key
+- [x] Form to enter n8n instance URL
+- [x] Form to enter n8n API key (masked input)
+- [x] Test connection button
+- [x] Success/failure feedback
+- [x] Save credentials securely
+- [x] Show connection status in UI
+- [x] Instructions for getting API key
 
 ## Technical Implementation
 

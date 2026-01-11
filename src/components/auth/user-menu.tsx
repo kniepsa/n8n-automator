@@ -49,6 +49,16 @@ export function UserMenu({ email, avatarUrl }: UserMenuProps): React.ReactElemen
             <div className="p-1">
               <Button
                 variant="ghost"
+                className="w-full justify-start"
+                onClick={() => {
+                  setIsOpen(false);
+                  router.push('/settings');
+                }}
+              >
+                Settings
+              </Button>
+              <Button
+                variant="ghost"
                 className="w-full justify-start text-destructive hover:bg-destructive/10 hover:text-destructive"
                 onClick={handleLogout}
                 disabled={isLoading}

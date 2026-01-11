@@ -33,8 +33,8 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   // Protected routes
-  const protectedPaths = ['/chat', '/templates'];
-  const protectedApiPaths = ['/api/chat', '/api/templates'];
+  const protectedPaths = ['/chat', '/templates', '/settings'];
+  const protectedApiPaths = ['/api/chat', '/api/templates', '/api/settings'];
   const isProtectedPath = protectedPaths.some((path) => request.nextUrl.pathname.startsWith(path));
   const isProtectedApiPath = protectedApiPaths.some((path) =>
     request.nextUrl.pathname.startsWith(path)
