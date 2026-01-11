@@ -51,6 +51,11 @@ User Chat → Next.js API → Claude + n8n MCP → User's n8n Instance → Workf
 - **Supabase API Keys**: New dashboard shows publishable/secret keys; use "Legacy anon, service_role" link for traditional anon key
 - **useSearchParams()**: Must wrap component using this hook in `<Suspense>` boundary or build fails
 - **AES-256-GCM encryption**: Requires `ENCRYPTION_SECRET` env var (generate with `openssl rand -hex 32`)
+- **Prompt strategy**: Use "propose-first, deploy later" - Claude outputs JSON for preview, only calls create_workflow after user approval
+- **Credential wall**: Non-technical users hit "credentials not found" errors - must discover credentials BEFORE workflow generation
+- **Target niche**: "Non-technical self-hosted n8n users" - only segment without AI workflow builder option (cloud-only)
+- **Goal-first flow**: 5 phases (goal → research → tools → credentials → chat) - AI suggests tools before user picks them
+- **Research prompt**: Must output strict JSON format; use `parseResearchResult()` to extract from markdown code blocks
 
 ## Commands
 

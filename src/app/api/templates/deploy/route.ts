@@ -14,6 +14,7 @@ interface DeployRequest {
 interface DeployResponse {
   success: boolean;
   workflowId?: string;
+  workflowUrl?: string;
   error?: string;
 }
 
@@ -61,9 +62,13 @@ export async function POST(req: Request): Promise<NextResponse<DeployResponse>> 
     // Extract workflow ID from result
     const workflowId = extractWorkflowId(result.data);
 
+    // Build workflow URL
+    const workflowUrl = workflowId ? `${config.n8nHost}/workflow/${workflowId}` : undefined;
+
     return NextResponse.json({
       success: true,
       workflowId,
+      workflowUrl,
     });
   } catch (error) {
     console.error('Deploy error:', error);

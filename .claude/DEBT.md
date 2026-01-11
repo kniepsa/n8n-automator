@@ -12,7 +12,10 @@
 - **"Join 0 others" on homepage**: Hide waitlist counter until > 10 signups
 - **No "Forgot password" link**: Add password reset flow
 - **No loading state on auth forms**: Add spinner to buttons during submit
+- **No live test run from UI**: Can't trigger and see workflow execution from app (deferred to v2)
+- **No session memory for chat**: Can't return and continue previous conversation
+- **MCP list_credentials**: Need to verify n8n-builder MCP server supports this tool (may need fallback)
 
 ---
 
-_Last updated: 2026-01-11_
+_Last updated: 2026-01-12_

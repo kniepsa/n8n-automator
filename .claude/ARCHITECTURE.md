@@ -1,32 +1,51 @@
 # Architecture Overview
 
-## The Graph
+## Strategic Direction
+
+**Chat-first approach**: The core differentiator is that non-technical users can describe what they want and get a working custom workflow. Templates are a quick-win path, but chat-to-deploy is the main feature.
+
+## The Graph (Goal-First Flow)
 
 ```
-                    ┌─────────────────┐
-                    │   /templates    │  (non-technical users)
-                    │   Template Grid │
-                    └────────┬────────┘
-                             │
-[User] ──┬──> [Chat UI] ─────┼──> [/api/chat] ──> [Claude + MCP] ──> [n8n Instance]
-         │    (developers)   │         ↓
-         │                   │   [System Prompts]
-         │                   │   (fast/thorough)
-         │                   │
-         └──> [Template      │
-              Wizard] ───────┴──> [/api/templates/deploy] ──> [MCP create_workflow]
-              (non-techies)
+                         ┌─────────────────┐
+                         │   /templates    │  (quick wins)
+                         │   Template Grid │
+                         └────────┬────────┘
+                                  │
+[User] ─┬─> [Goal Input] ──> [AI Research] ──> [Tool Selector] ──> [Credential Check] ──> [Chat UI]
+        │   "What to      (/api/chat/research)  (card-based)    (/api/n8n/credentials)      ↓
+        │    automate?"        ↓                    ↓                    ↓             [Workflow Card]
+        │                 [3-5 tools +        [User selects]      [Shows gaps]              ↓
+        │                  reasons]            essential tools    [Continue anyway]     [Deploy]
+        │                                                                                   ↓
+        └─> [Template Wizard] ──> [/api/templates/deploy] ─────────────────────────> [n8n Instance]
 ```
 
 ## Key Services
 
-- **Chat Interface** (`/chat`): Streaming chat with mode selector (Fast/Thorough)
-- **Chat API** (`/api/chat`): Claude with n8n MCP tools, quality mode support
-- **Template System** (`/templates`): Browse + wizard for non-technical users
-- **Template Wizard** (`/templates/[id]`): Step-by-step configuration, visual preview
-- **Deploy API** (`/api/templates/deploy`): Direct MCP workflow creation from templates
+### Goal-First Flow (New)
+
+- **Goal Input** (`chat/goal-input.tsx`): Single-field goal entry with examples
+- **Research API** (`/api/chat/research`): Claude analyzes goal, suggests 3-5 tools with reasons
+- **Tool Selector** (`chat/tool-selector.tsx`): Card-based selection with importance badges
+- **Credential Gap Check** (`chat/credential-gap-check.tsx`): Shows connected vs missing tools
+- **Research Prompt** (`lib/n8n/prompts.ts`): Tool discovery system prompt + JSON parsing
+
+### Core Services
+
+- **Chat Interface** (`/chat`): 5-phase flow: goal → research → tools → credentials → chat
+- **Workflow Card** (`chat/workflow-card.tsx`): Visual preview + 1-click deploy in chat
+- **Chat API** (`/api/chat`): Claude with n8n MCP tools, context injection, quality mode
+- **Credentials API** (`/api/n8n/credentials`): Lists credentials from n8n via MCP
+- **Workflow Validator** (`lib/n8n/validator.ts`): Validates workflow JSON before deploy
 - **n8n MCP Client** (`lib/n8n/mcp-client.ts`): Manages MCP connection to n8n-builder
-- **Prompts** (`lib/n8n/prompts.ts`): System prompts with pre-baked node examples
+- **Prompts** (`lib/n8n/prompts.ts`): System prompts with constraints + context injection
+
+### Templates (Quick Wins)
+
+- **Template System** (`/templates`): Browse + wizard for quick wins
+- **Template Wizard** (`/templates/[id]`): Step-by-step configuration, visual preview
+- **Deploy API** (`/api/templates/deploy`): Direct MCP workflow creation
 
 ## External Integrations
 
@@ -44,16 +63,18 @@
 
 ## Data Flow
 
-### Chat Flow (Developers)
+### Goal-First Chat Flow (Main Path)
 
-1. User types automation request in chat
-2. Frontend sends to /api/chat with quality mode
-3. Claude interprets intent using system prompt
-4. Claude calls n8n MCP tools (create_workflow, etc.)
-5. MCP client executes against user's n8n instance
-6. Response streamed back to user
+1. **Goal Input**: User describes what they want to automate
+2. **AI Research**: `/api/chat/research` → Claude suggests 3-5 tools with reasons
+3. **Tool Selection**: User picks from recommended tools (card UI)
+4. **Credential Check**: Show connected vs missing credentials
+5. **Chat**: Goal auto-sent, Claude generates workflow with selected tools
+6. **WorkflowCard**: Visual preview rendered from JSON
+7. **Deploy**: One-click → `/api/templates/deploy`
+8. **n8n**: MCP creates workflow in user's instance
 
-### Template Flow (Non-Techies)
+### Template Flow (Quick Wins)
 
 1. User browses templates by category (marketing, ops, sales)
 2. Selects template → wizard opens
@@ -64,11 +85,21 @@
 
 ## Templates
 
-| Template                | Category  | Complexity   | Nodes                        |
-| ----------------------- | --------- | ------------ | ---------------------------- |
-| Lead Scoring & Routing  | Marketing | Intermediate | Webhook → Score → IF → Slack |
-| Customer Health Monitor | Ops       | Intermediate | Cron → HTTP → IF → Slack     |
-| Content Distribution    | Marketing | Simple       | RSS → OpenAI → Slack         |
+### Tier 1: "First Win" (Simple)
+
+| Template              | Category | Nodes                 |
+| --------------------- | -------- | --------------------- |
+| Webhook → Slack Alert | Ops      | Webhook → Slack       |
+| Form to Airtable      | Sales    | Webhook → Airtable    |
+| Daily Sheets Summary  | Ops      | Cron → Sheets → Slack |
+
+### Tier 2+: Sophisticated
+
+| Template                | Category  | Nodes                        |
+| ----------------------- | --------- | ---------------------------- |
+| Lead Scoring & Routing  | Sales     | Webhook → Score → IF → Slack |
+| Customer Health Monitor | Ops       | Cron → HTTP → IF → Slack     |
+| Content Distribution    | Marketing | RSS → OpenAI → Slack         |
 
 ## Quality Modes
 
@@ -77,4 +108,8 @@
 | Fast     | ~500   | Base prompt only               |
 | Thorough | ~2000  | + pre-baked node JSON examples |
 
-_Last updated: 2026-01-11_
+## Target User
+
+**Non-technical person using SELF-HOSTED n8n** - the only segment without an AI workflow builder option (n8n native AI is cloud-only).
+
+_Last updated: 2026-01-12 (goal-first flow: goal → AI research → tool selector → credentials → chat)_
