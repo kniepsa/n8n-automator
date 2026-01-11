@@ -2,13 +2,12 @@
 
 ## Now
 
-- [ ] Deploy to Vercel + test template wizard live
+- [ ] n8n Connection settings UI (F-005) - Let users configure their n8n instance
 
 ## Up Next
 
-- [ ] Authentication (F-004)
-- [ ] n8n Connection settings UI (F-005)
 - [ ] Add more templates (access n8n marketplace for inspiration)
+- [ ] Google OAuth configuration (Supabase Dashboard + Google Cloud Console)
 
 ## Backlog
 
@@ -18,6 +17,8 @@
 
 ## Done (2026-01)
 
+- [x] **F-004 Authentication** - Supabase Auth with email/password, Google OAuth, protected routes
+- [x] **Vercel Deploy** - Production at https://n8n-automator.vercel.app
 - [x] **Template MVP** - 3 sophisticated templates, wizard UI, visual preview, one-click deploy
 - [x] **F-003 Workflow Generation** - Fast/Thorough modes, pre-baked node examples
 - [x] **F-002 n8n MCP Integration** - Claude can list/create/update workflows via MCP
