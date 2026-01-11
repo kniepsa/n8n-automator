@@ -44,6 +44,9 @@ User Chat → Next.js API → Claude + n8n MCP → User's n8n Instance → Workf
 - **AI SDK v6 tools**: Use `inputSchema` not `parameters`, and `stopWhen: stepCountIs(5)` not `maxSteps`
 - **AI SDK v6 transport**: Pass extra body params via `DefaultChatTransport({ api: '/api/chat', body: { mode } })`
 - **Context7 MCP**: n8n docs at `/n8n-io/n8n-docs` (811 snippets, benchmark 74.6) - good for node JSON examples
+- **executeMCPTool signature**: Requires client as first arg: `executeMCPTool(client, toolName, args)`, returns `MCPToolResult` with `data` not `content`
+- **Template wizard**: Use `currentStepData &&` guard in JSX when accessing `template.steps[state.currentStep]` (possibly undefined)
+- **Target users**: Non-technical (marketing & ops) → template wizard; Technical → chat interface
 
 ## Commands
 
