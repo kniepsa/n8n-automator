@@ -32,7 +32,15 @@
 
 - **Claude API**: Via Vercel AI SDK (claude-sonnet-4-20250514)
 - **n8n MCP Server**: mcp-n8n-builder via stdio transport
-- **Supabase**: Database + Auth (planned)
+- **Supabase**: Database + Auth (PostgreSQL + RLS + @supabase/ssr)
+
+## Authentication
+
+- **Auth Middleware** (`src/middleware.ts`): Protects /chat, /templates/_, /api/_ routes
+- **Supabase Clients**: Browser (`lib/supabase/client.ts`), Server (`server.ts`), Middleware (`middleware.ts`)
+- **Auth Pages**: Login, Signup with email/password + Google OAuth
+- **User Menu**: Avatar dropdown with logout in header
+- **Profiles Table**: Auto-created on signup via trigger, RLS-protected
 
 ## Data Flow
 
@@ -69,4 +77,4 @@
 | Fast     | ~500   | Base prompt only               |
 | Thorough | ~2000  | + pre-baked node JSON examples |
 
-_Last updated: 2026-01-10_
+_Last updated: 2026-01-11_

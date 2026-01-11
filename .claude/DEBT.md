@@ -1,20 +1,16 @@
 # Technical Debt
 
-## Critical
+## High Priority
 
-_None yet_
 
-## High
+## Medium Priority
 
-_None yet_
+- **Google OAuth credentials**: Need to configure in Supabase Dashboard (Authentication → Providers → Google) with Google Cloud Console credentials
 
-## Medium
+## Low Priority
 
-- [ ] Add rate limiting to /api/chat endpoint
-- [ ] Implement n8n API key encryption in Supabase
+- **Next.js middleware deprecation**: `middleware.ts` shows warning to migrate to "proxy" pattern (still works for now)
 
-## Low
+---
 
-- [ ] Add analytics/usage tracking
-- [ ] Implement workflow version history
-- [ ] Add keyboard shortcuts for chat interface
+*Last updated: 2026-01-11*

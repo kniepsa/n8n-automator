@@ -47,6 +47,9 @@ User Chat → Next.js API → Claude + n8n MCP → User's n8n Instance → Workf
 - **executeMCPTool signature**: Requires client as first arg: `executeMCPTool(client, toolName, args)`, returns `MCPToolResult` with `data` not `content`
 - **Template wizard**: Use `currentStepData &&` guard in JSX when accessing `template.steps[state.currentStep]` (possibly undefined)
 - **Target users**: Non-technical (marketing & ops) → template wizard; Technical → chat interface
+- **Next.js 16**: `middleware.ts` is deprecated, shows warning to use "proxy" instead (still works)
+- **Supabase API Keys**: New dashboard shows publishable/secret keys; use "Legacy anon, service_role" link for traditional anon key
+- **useSearchParams()**: Must wrap component using this hook in `<Suspense>` boundary or build fails
 
 ## Commands
 
