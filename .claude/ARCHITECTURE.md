@@ -124,4 +124,33 @@
 
 **Non-technical person using SELF-HOSTED n8n** - the only segment without an AI workflow builder option (n8n native AI is cloud-only).
 
-_Last updated: 2026-01-12 (F-010: React Flow visual preview with dagre layout, plain English summary)_
+## Future Direction: n8n Concierge (Option A)
+
+<!--
+STRATEGIC NOTE (2026-01-12 Joe Gebbia Critique):
+
+Current approach challenges:
+- "Non-technical + self-hosted" is a small intersection (~5-10K users)
+- Claude Desktop + n8n MCP gives same core value for free
+- 8 steps before value (sign up → connect → goal → tools → creds → chat → preview → deploy)
+- No retention hook (one-time tool, not habit-forming)
+
+Future pivot opportunity - "n8n Concierge for teams without DevOps":
+1. Done-for-you n8n hosting (Railway one-click)
+2. Credential setup wizard (OAuth hand-holding)
+3. Pre-built workflow library (not templates, working workflows)
+4. Monitoring dashboard (failure alerts)
+5. Managed upgrades (n8n version updates)
+
+USP: "n8n without the DevOps. We host, configure, and maintain. You just automate."
+Pricing: $49/mo (vs n8n Cloud $24/mo for convenience)
+
+This creates:
+- Real recurring value (hosting + maintenance)
+- Defensible moat (operational expertise, not just AI)
+- Truly non-technical users (because WE handle technical parts)
+
+For now: Ship current chat-first approach, validate with users, then consider pivot.
+-->
+
+_Last updated: 2026-01-12 (ADR-005: Joe Gebbia Critique, Future Direction comment added)_

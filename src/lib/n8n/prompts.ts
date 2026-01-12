@@ -97,6 +97,60 @@ When user says "deploy", "yes", "looks good", "do it":
 
 Be concise, friendly, and focused on helping non-technical users succeed.`;
 
+// N8n Nerd Process - Steps 1-4 only (semantic guidance)
+// Steps 5-7 (layout, validation, output) handled by existing code:
+// - auto-layout.ts (dagre positioning)
+// - validator.ts (workflow validation)
+
+const N8N_NERD_PROCESS_FAST = `
+
+## Workflow Generation
+
+Before generating, identify:
+- Trigger: webhook | schedule | manual
+- Transform: What happens to data
+- Output: Where data goes
+
+Node preference: Native > HTTP Request > Code
+Error handling: Add for 4+ node workflows
+MAX 5-7 nodes. Descriptive names.
+`;
+
+const N8N_NERD_PROCESS_THOROUGH = `
+
+## N8n Nerd Process
+
+### 1. INTENT
+- Trigger type: webhook | schedule | manual | event
+- Inputs: What data comes in
+- Transformations: What processing needed
+- Outputs: Where data goes
+- Conditions: Any branching logic
+
+### 2. DECOMPOSE
+Pattern: [TRIGGER] → [TRANSFORM?] → [CONDITION?] → [ACTION] → [OUTPUT?]
+- Exactly ONE trigger
+- Logic nodes before actions
+- Minimal transformations
+
+### 3. NODE SELECT
+| Need | Use | Avoid |
+|------|-----|-------|
+| HTTP trigger | webhook | httpRequest |
+| Condition | if | code for simple logic |
+| Transform | set | function for simple |
+| Message | Native (slack) | httpRequest to API |
+
+Preference: Native > HTTP Request > Code
+
+### 4. ERROR ARMOR
+- 2-3 nodes: None needed
+- 4-5 nodes: Error output on critical nodes
+- 6+ nodes: Try/catch pattern
+
+MAX 5-7 nodes. Descriptive names (not "IF1").
+`;
+
 const NODE_EXAMPLES = `
 
 ## Node Reference (JSON Examples)
@@ -294,9 +348,9 @@ Webhook -> IF (validate) -> Process -> Response
 
 export function getSystemPrompt(mode: QualityMode): string {
   if (mode === 'thorough') {
-    return BASE_PROMPT + NODE_EXAMPLES;
+    return BASE_PROMPT + N8N_NERD_PROCESS_THOROUGH + NODE_EXAMPLES;
   }
-  return BASE_PROMPT;
+  return BASE_PROMPT + N8N_NERD_PROCESS_FAST;
 }
 
 function buildContextSection(context: WorkflowContext, connectedTools?: string[]): string {
