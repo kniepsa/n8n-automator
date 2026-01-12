@@ -2,12 +2,12 @@
 
 ## Now
 
-- [ ] F-012: Workflow Health Dashboard - see deployed workflows, status, last run
+- [ ] F-013: One-Click Test - trigger workflow from app
 
 ## Up Next
 
-- [ ] F-013: One-Click Test - trigger workflow from app
 - [ ] F-014: Smart Error Suggestions - Claude analyzes failures, suggests fixes
+- [ ] F-015: Natural Language Editing - "Add a filter step" modifies workflow
 
 ## Backlog
 
@@ -40,6 +40,13 @@
 
 ## Done (2026-01)
 
+- [x] **F-012: My Automations** - See deployed workflows, health status, impact metrics
+  - Page at `/automations` with workflow cards
+  - Health badges: Healthy / Needs attention / Paused
+  - Weekly run count per workflow (impact metric)
+  - Pause/Resume toggle, "View in n8n" link
+  - Empty state with CTA to chat
+  - Joe Gebbia critique: Lead with IMPACT, not STATUS
 - [x] **F-011: Post-Deploy Celebration** - Confetti animation, success modal, "Build Another" flow
   - canvas-confetti for celebration bursts
   - Full-screen modal with backdrop blur

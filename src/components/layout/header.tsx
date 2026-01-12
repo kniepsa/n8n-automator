@@ -21,6 +21,12 @@ export async function Header(): Promise<React.ReactElement> {
           {user ? (
             <>
               <Link
+                href="/automations"
+                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              >
+                My Automations
+              </Link>
+              <Link
                 href="/templates"
                 className="text-sm text-muted-foreground transition-colors hover:text-foreground"
               >

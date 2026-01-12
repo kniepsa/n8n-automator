@@ -31,6 +31,13 @@
 - **Credential Gap Check** (`chat/credential-gap-check.tsx`): Shows connected vs missing tools
 - **Research Prompt** (`lib/n8n/prompts.ts`): Tool discovery system prompt + JSON parsing
 
+### My Automations (F-012)
+
+- **Automations Page** (`/automations`): View all deployed workflows with health status
+- **Automations API** (`/api/automations`): Lists workflows + weekly execution counts
+- **Toggle API** (`/api/automations/[id]/toggle`): Pause/resume workflows
+- **AutomationCard** (`components/automations/automation-card.tsx`): Health badge, impact metrics
+
 ### Core Services
 
 - **Chat Interface** (`/chat`): 5-phase flow: goal → research → tools → credentials → chat
