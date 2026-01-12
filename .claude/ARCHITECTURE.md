@@ -35,6 +35,7 @@
 
 - **Chat Interface** (`/chat`): 5-phase flow: goal → research → tools → credentials → chat
 - **Workflow Card** (`chat/workflow-card.tsx`): Visual preview + 1-click deploy in chat
+- **Deploy Celebration** (`chat/deploy-celebration.tsx`): Post-deploy confetti + success modal (F-011)
 - **Chat API** (`/api/chat`): Claude with n8n MCP tools, context injection, quality mode
 - **Credentials API** (`/api/n8n/credentials`): Lists credentials from n8n via MCP
 - **Workflow Validator** (`lib/n8n/validator.ts`): Validates workflow JSON with node-level warnings
@@ -177,4 +178,4 @@ This creates:
 For now: Ship current chat-first approach, validate with users, then consider pivot.
 -->
 
-_Last updated: 2026-01-12 (F-006 Conversation History verified)_
+_Last updated: 2026-01-12 (F-011 Post-Deploy Celebration shipped)_

@@ -2,12 +2,12 @@
 
 ## Now
 
-- [ ] F-011: Post-Deploy Celebration - confetti, success modal, "Build Another" flow
+- [ ] F-012: Workflow Health Dashboard - see deployed workflows, status, last run
 
 ## Up Next
 
-- [ ] F-012: Workflow Health Dashboard - see deployed workflows, status, last run
 - [ ] F-013: One-Click Test - trigger workflow from app
+- [ ] F-014: Smart Error Suggestions - Claude analyzes failures, suggests fixes
 
 ## Backlog
 
@@ -40,6 +40,11 @@
 
 ## Done (2026-01)
 
+- [x] **F-011: Post-Deploy Celebration** - Confetti animation, success modal, "Build Another" flow
+  - canvas-confetti for celebration bursts
+  - Full-screen modal with backdrop blur
+  - "Open in n8n", "Build Another", "Done" actions
+  - Joe Gebbia: "The moment AFTER the transaction is where loyalty is built"
 - [x] **Conversation History (F-006)** - Persistent chat sessions with sidebar
   - Supabase tables: `conversations`, `messages` with RLS
   - Auto-save with 500ms debounce after streaming
