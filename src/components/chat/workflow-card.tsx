@@ -1,24 +1,24 @@
 'use client';
 
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import type { N8nWorkflow } from '@/lib/workflow/types';
 
-interface N8nNode {
-  name: string;
-  type: string;
-  typeVersion?: number;
-  position?: [number, number];
-  parameters?: Record<string, unknown>;
-}
-
-interface N8nWorkflow {
-  name: string;
-  nodes: N8nNode[];
-  connections: Record<string, unknown>;
-  settings?: Record<string, unknown>;
-}
+// Dynamically import WorkflowPreview to avoid SSR issues with React Flow
+const WorkflowPreview = dynamic(
+  () => import('@/components/workflow-preview').then((mod) => mod.WorkflowPreview),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="flex h-[280px] items-center justify-center rounded-lg bg-muted/50">
+        <p className="text-sm text-muted-foreground">Loading preview...</p>
+      </div>
+    ),
+  }
+);
 
 interface WorkflowCardProps {
   workflow: N8nWorkflow;
@@ -31,34 +31,7 @@ interface DeployResult {
   error?: string;
 }
 
-const NODE_ICONS: Record<string, string> = {
-  'n8n-nodes-base.webhook': '🔗',
-  'n8n-nodes-base.cron': '⏰',
-  'n8n-nodes-base.slack': '💬',
-  'n8n-nodes-base.googleSheets': '📊',
-  'n8n-nodes-base.airtable': '🗄️',
-  'n8n-nodes-base.set': '✏️',
-  'n8n-nodes-base.if': '🔀',
-  'n8n-nodes-base.httpRequest': '🌐',
-  'n8n-nodes-base.function': '⚡',
-  'n8n-nodes-base.errorTrigger': '🚨',
-  'n8n-nodes-base.code': '💻',
-  'n8n-nodes-base.emailSend': '📧',
-  'n8n-nodes-base.notion': '📝',
-};
-
-function getNodeIcon(type: string): string {
-  return NODE_ICONS[type] || '📦';
-}
-
-function getNodeDisplayName(type: string): string {
-  // Extract node name from type like 'n8n-nodes-base.slack' -> 'Slack'
-  const parts = type.split('.');
-  const name = parts[parts.length - 1] ?? type;
-  return name.charAt(0).toUpperCase() + name.slice(1);
-}
-
-function getTriggerInstructions(nodes: N8nNode[]): string {
+function getTriggerInstructions(nodes: N8nWorkflow['nodes']): string {
   // Find the trigger node and return appropriate test instructions
   const triggerNode = nodes.find((n) =>
     [
@@ -133,22 +106,9 @@ export function WorkflowCard({ workflow }: WorkflowCardProps): React.ReactElemen
         <Badge className={`${nodeCountColor} text-white`}>{nodeCount} nodes</Badge>
       </div>
 
-      {/* Visual preview */}
-      <div className="flex flex-wrap items-center justify-center gap-2 p-4">
-        {workflow.nodes.map((node, i) => (
-          <div key={node.name} className="flex items-center">
-            <div className="flex flex-col items-center">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-muted text-xl">
-                {getNodeIcon(node.type)}
-              </div>
-              <p className="mt-1 max-w-[80px] truncate text-center text-xs font-medium">
-                {node.name}
-              </p>
-              <p className="text-[10px] text-muted-foreground">{getNodeDisplayName(node.type)}</p>
-            </div>
-            {i < workflow.nodes.length - 1 && <div className="mx-2 text-muted-foreground">→</div>}
-          </div>
-        ))}
+      {/* Visual Preview with React Flow */}
+      <div className="p-4">
+        <WorkflowPreview workflow={workflow} />
       </div>
 
       {/* Deploy result */}

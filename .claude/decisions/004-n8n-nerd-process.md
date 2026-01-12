@@ -9,6 +9,7 @@ Accepted
 Current workflow generation is good but not great. We need a systematic process that produces production-ready n8n workflows, not prototypes.
 
 **Problems with current approach:**
+
 1. No error handling by default
 2. No validation before output
 3. Node positioning is arbitrary
@@ -51,14 +52,15 @@ Parse user's natural language into structured intent:
 interface WorkflowIntent {
   trigger: 'webhook' | 'schedule' | 'manual' | 'event';
   triggerDetails?: string; // "every day at 9am", "when form submitted"
-  inputs: string[];        // What data comes in
+  inputs: string[]; // What data comes in
   transformations: string[]; // What happens to data
-  outputs: string[];       // Where data goes
-  conditions?: string[];   // Any if/else logic
+  outputs: string[]; // Where data goes
+  conditions?: string[]; // Any if/else logic
 }
 ```
 
 **Example:**
+
 - User: "When someone fills out our Typeform, check if they're a good lead, and notify sales on Slack"
 - Intent:
   ```json
@@ -81,6 +83,7 @@ Break into the canonical workflow pattern:
 ```
 
 Rules:
+
 - Every workflow starts with exactly ONE trigger
 - Logic nodes (IF, Switch) come before action nodes
 - Keep transformations minimal (Set node only when necessary)
@@ -90,17 +93,18 @@ Rules:
 
 Choose the optimal n8n node for each step:
 
-| Need | Best Node | Avoid |
-|------|-----------|-------|
-| HTTP trigger | `webhook` | ~~`httpRequest` as trigger~~ |
-| Time-based | `schedule` / `cron` | |
-| Check condition | `if` | ~~`code` for simple logic~~ |
-| Transform data | `set` | ~~`function` for simple mapping~~ |
-| Complex logic | `code` | Only when `set` isn't enough |
-| API call | `httpRequest` | |
-| Send message | Native node (slack, discord) | ~~`httpRequest` to Slack API~~ |
+| Need            | Best Node                    | Avoid                             |
+| --------------- | ---------------------------- | --------------------------------- |
+| HTTP trigger    | `webhook`                    | ~~`httpRequest` as trigger~~      |
+| Time-based      | `schedule` / `cron`          |                                   |
+| Check condition | `if`                         | ~~`code` for simple logic~~       |
+| Transform data  | `set`                        | ~~`function` for simple mapping~~ |
+| Complex logic   | `code`                       | Only when `set` isn't enough      |
+| API call        | `httpRequest`                |                                   |
+| Send message    | Native node (slack, discord) | ~~`httpRequest` to Slack API~~    |
 
 **Node Preference Hierarchy:**
+
 1. Native integration node (best)
 2. HTTP Request with auth (good)
 3. Code node (last resort)
@@ -109,13 +113,14 @@ Choose the optimal n8n node for each step:
 
 Add resilience based on complexity:
 
-| Complexity | Error Handling |
-|------------|----------------|
-| Simple (2-3 nodes) | None needed |
+| Complexity         | Error Handling                     |
+| ------------------ | ---------------------------------- |
+| Simple (2-3 nodes) | None needed                        |
 | Medium (4-5 nodes) | Add error output on critical nodes |
-| Complex (6+ nodes) | Full try/catch pattern |
+| Complex (6+ nodes) | Full try/catch pattern             |
 
 **Try/Catch Pattern:**
+
 ```
 [Trigger] → [Try Node] → [Action] → [Success Output]
                 ↓
@@ -123,11 +128,13 @@ Add resilience based on complexity:
 ```
 
 **When to add error handling:**
+
 - External API calls (might fail)
 - Data transformations (might have bad input)
 - Credential-dependent operations
 
 **When NOT to add error handling:**
+
 - Simple webhook → Slack notification
 - User explicitly wants minimal workflow
 
@@ -147,13 +154,14 @@ const LAYOUT_RULES = {
 
 function calculatePosition(nodeIndex: number, branchIndex: number = 0) {
   return {
-    x: LAYOUT_RULES.startX + (nodeIndex * LAYOUT_RULES.horizontalGap),
-    y: LAYOUT_RULES.startY + (branchIndex * LAYOUT_RULES.verticalGap),
+    x: LAYOUT_RULES.startX + nodeIndex * LAYOUT_RULES.horizontalGap,
+    y: LAYOUT_RULES.startY + branchIndex * LAYOUT_RULES.verticalGap,
   };
 }
 ```
 
 **Layout patterns:**
+
 - Linear: Left to right, same Y
 - Branching: IF true goes up, IF false goes down
 - Merge: Multiple paths converge to single node
@@ -164,16 +172,17 @@ Before outputting, check:
 
 ```typescript
 interface ValidationChecklist {
-  hasOneTrigger: boolean;      // Exactly one trigger node
-  allNodesConnected: boolean;  // No orphan nodes
+  hasOneTrigger: boolean; // Exactly one trigger node
+  allNodesConnected: boolean; // No orphan nodes
   credentialsSpecified: boolean; // creds object present where needed
-  positionsValid: boolean;     // No overlapping nodes
-  namesDescriptive: boolean;   // Not "IF1", "Set2"
-  nodeTypesExist: boolean;     // Valid n8n node types
+  positionsValid: boolean; // No overlapping nodes
+  namesDescriptive: boolean; // Not "IF1", "Set2"
+  nodeTypesExist: boolean; // Valid n8n node types
 }
 ```
 
 **Auto-fix common issues:**
+
 - Missing positions → calculate with layout algorithm
 - Generic names → generate descriptive names
 - Missing credentials object → add placeholder
@@ -188,15 +197,18 @@ Structured output format:
 [VISUAL PREVIEW - React Flow component]
 
 ### What it does:
+
 1. **[Trigger]** - Starts when [event]
 2. **[Node 2]** - Does [action]
 3. **[Node 3]** - Sends to [destination]
 
 ### Credentials needed:
+
 - Slack (OAuth) - for notifications
 - Airtable (API key) - for storage
 
 ### Ready to deploy?
+
 [Deploy to n8n] button
 ```
 
@@ -267,12 +279,14 @@ Before outputting ANY workflow JSON, verify:
 ## Consequences
 
 ### Positive
+
 - More consistent workflow quality
 - Better user experience (visual preview + validation)
 - Fewer "credentials not found" errors
 - Workflows work on first deploy more often
 
 ### Negative
+
 - Slightly longer generation time
 - More complex prompts (token usage)
 - Need to maintain validation logic

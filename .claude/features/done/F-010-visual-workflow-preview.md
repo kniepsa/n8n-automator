@@ -11,6 +11,7 @@ P0 - Critical Differentiator
 ## The Problem (First Principles)
 
 Current state:
+
 ```
 Claude generates JSON → User sees... JSON? Summary? → Leap of faith → Deploy
 ```
@@ -25,15 +26,15 @@ As a user, I want to see my workflow visually before deploying so I can verify i
 
 ## Acceptance Criteria
 
-- [ ] Visual node graph using React Flow
-- [ ] Nodes styled to match n8n aesthetic (rounded, icons, colors)
-- [ ] Connection lines with proper routing
-- [ ] Node hover shows: name, type, brief config
-- [ ] Dark/light theme support
-- [ ] Zoom/pan controls
-- [ ] Node count and trigger type badge
-- [ ] "Deploy to n8n" button prominent
-- [ ] Smooth animations on load
+- [x] Visual node graph using React Flow
+- [x] Nodes styled to match n8n aesthetic (rounded, icons, colors)
+- [x] Connection lines with proper routing (bezier curves)
+- [x] Node hover shows: name, type, brief config
+- [x] Dark/light theme support (uses CSS variables)
+- [x] Zoom/pan controls
+- [x] Node count and trigger type badge (in header)
+- [x] "Deploy to n8n" button prominent
+- [x] Smooth animations on load (fitView with padding)
 
 ## Design: Sleek Edition
 
@@ -69,6 +70,7 @@ As a user, I want to see my workflow visually before deploying so I can verify i
 ### Node Design
 
 Each node is a rounded rectangle with:
+
 - **Icon**: Service icon (Slack, Sheets, etc.) or type icon (IF, Switch)
 - **Name**: Node display name
 - **Subtle glow**: On hover
@@ -207,12 +209,12 @@ export function layoutWorkflow(nodes: Node[], edges: Edge[]): Node[] {
   g.setGraph({ rankdir: 'LR', nodesep: 50, ranksep: 100 });
   g.setDefaultEdgeLabel(() => ({}));
 
-  nodes.forEach(node => g.setNode(node.id, { width: 150, height: 60 }));
-  edges.forEach(edge => g.setEdge(edge.source, edge.target));
+  nodes.forEach((node) => g.setNode(node.id, { width: 150, height: 60 }));
+  edges.forEach((edge) => g.setEdge(edge.source, edge.target));
 
   dagre.layout(g);
 
-  return nodes.map(node => ({
+  return nodes.map((node) => ({
     ...node,
     position: {
       x: g.node(node.id).x - 75,
@@ -224,23 +226,23 @@ export function layoutWorkflow(nodes: Node[], edges: Edge[]): Node[] {
 
 ## Files to Create
 
-| File | Purpose |
-|------|---------|
-| `src/components/workflow-preview/WorkflowPreview.tsx` | Main container |
-| `src/components/workflow-preview/N8nNode.tsx` | Custom node component |
-| `src/components/workflow-preview/N8nEdge.tsx` | Custom edge with animation |
-| `src/components/workflow-preview/WorkflowStats.tsx` | Node count, trigger type |
-| `src/components/workflow-preview/NodeTooltip.tsx` | Hover details |
-| `src/lib/workflow/convert-to-reactflow.ts` | N8n JSON → React Flow |
-| `src/lib/workflow/auto-layout.ts` | Dagre-based layout |
-| `src/lib/workflow/node-icons.ts` | Icon mapping for n8n nodes |
+| File                                                  | Purpose                    |
+| ----------------------------------------------------- | -------------------------- |
+| `src/components/workflow-preview/WorkflowPreview.tsx` | Main container             |
+| `src/components/workflow-preview/N8nNode.tsx`         | Custom node component      |
+| `src/components/workflow-preview/N8nEdge.tsx`         | Custom edge with animation |
+| `src/components/workflow-preview/WorkflowStats.tsx`   | Node count, trigger type   |
+| `src/components/workflow-preview/NodeTooltip.tsx`     | Hover details              |
+| `src/lib/workflow/convert-to-reactflow.ts`            | N8n JSON → React Flow      |
+| `src/lib/workflow/auto-layout.ts`                     | Dagre-based layout         |
+| `src/lib/workflow/node-icons.ts`                      | Icon mapping for n8n nodes |
 
 ## Files to Modify
 
-| File | Change |
-|------|--------|
+| File                                     | Change                                    |
+| ---------------------------------------- | ----------------------------------------- |
 | `src/components/chat/chat-interface.tsx` | Replace JSON preview with WorkflowPreview |
-| `package.json` | Add @xyflow/react, dagre |
+| `package.json`                           | Add @xyflow/react, dagre                  |
 
 ## Node Icon Mapping
 

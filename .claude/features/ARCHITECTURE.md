@@ -173,4 +173,4 @@ See `/decisions/` for rationale:
 - `N8nEdge` - Animated connection lines
 - `WorkflowStats` - Node count, trigger type badge
 
-*Last updated: 2026-01-12*
+_Last updated: 2026-01-12_

@@ -23,10 +23,12 @@
   "dependencies": {
     "@ai-sdk/anthropic": "^3.0.9",
     "@ai-sdk/react": "^3.0.25",
+    "@dagrejs/dagre": "^1.1.8",
     "@modelcontextprotocol/sdk": "^1.25.2",
     "@radix-ui/react-slot": "^1.2.4",
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.90.1",
+    "@xyflow/react": "^12.10.0",
     "ai": "^6.0.24",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

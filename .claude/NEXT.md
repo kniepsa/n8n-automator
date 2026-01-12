@@ -2,20 +2,14 @@
 
 ## Now
 
-- [ ] **F-010: Visual Workflow Preview (YSIYG)** - React Flow preview before deploy
-  - Users SEE the workflow visually (not JSON)
-  - Node graph with icons, connections, branch labels
-  - Sleek n8n-style aesthetic
-  - "Trust what you see" before deploying
-  - See: `.claude/features/F-010-visual-workflow-preview.md`
-
-## Up Next
-
 - [ ] **N8n Nerd Process** - Internal quality system (invisible to users)
   - 7-step systematic generation: Intent → Decompose → Node Select → Error Armor → Layout → Validate → Output
   - Produces production-ready workflows, not prototypes
   - Users see simple explanations, Claude does the heavy lifting
   - See: `.claude/decisions/004-n8n-nerd-process.md`
+
+## Up Next
+
 - [ ] Conversation history (F-006) - Save/resume chat sessions
 - [ ] Iterate with feedback ("add X", "remove Y" updates workflow)
 - [ ] Favorites system (localStorage) for tool preferences
@@ -32,6 +26,13 @@
 
 ## Done (2026-01)
 
+- [x] **F-010: Visual Workflow Preview (YSIYG)** - React Flow visual preview (9/9 criteria)
+  - React Flow node graph with dagre auto-layout
+  - N8n-style nodes with category colors (trigger/action/logic/transform)
+  - Plain English summary ("What this does" section)
+  - Validation warnings and credential requirements
+  - Zoom/pan controls, minimap for complex flows
+  - See: `.claude/features/F-010-visual-workflow-preview.md`
 - [x] **Goal-First Flow (MLP v2)** - Complete redesign of chat onboarding:
   - Goal Input component (`goal-input.tsx`) - single-field entry with examples
   - Research API (`/api/chat/research`) - Claude suggests 3-5 tools with reasons

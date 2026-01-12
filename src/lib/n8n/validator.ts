@@ -25,6 +25,12 @@ export interface ValidationResult {
   warnings: string[];
 }
 
+export interface DetailedValidation extends ValidationResult {
+  nodeWarnings: Map<string, string[]>;
+  credentialGaps: string[];
+  complexityScore: number;
+}
+
 const TRIGGER_NODE_TYPES = [
   'n8n-nodes-base.webhook',
   'n8n-nodes-base.cron',
@@ -169,4 +175,103 @@ export function validateWorkflow(workflow: unknown): ValidationResult {
     errors,
     warnings,
   };
+}
+
+/**
+ * Credential requirements by node type
+ */
+const CREDENTIAL_REQUIREMENTS: Record<string, string> = {
+  'n8n-nodes-base.slack': 'Slack',
+  'n8n-nodes-base.googleSheets': 'Google Sheets',
+  'n8n-nodes-base.airtable': 'Airtable',
+  'n8n-nodes-base.notion': 'Notion',
+  'n8n-nodes-base.gmail': 'Gmail',
+  'n8n-nodes-base.discord': 'Discord',
+  'n8n-nodes-base.telegram': 'Telegram',
+  'n8n-nodes-base.github': 'GitHub',
+  'n8n-nodes-base.jira': 'Jira',
+  'n8n-nodes-base.salesforce': 'Salesforce',
+  'n8n-nodes-base.stripe': 'Stripe',
+  'n8n-nodes-base.twilio': 'Twilio',
+};
+
+/**
+ * Enhanced validation with node-level details for visual preview
+ */
+export function validateWorkflowDetailed(workflow: unknown): DetailedValidation {
+  const baseResult = validateWorkflow(workflow);
+
+  // Initialize detailed results
+  const nodeWarnings = new Map<string, string[]>();
+  const credentialGaps: string[] = [];
+
+  // Early return if basic validation failed
+  if (typeof workflow !== 'object' || workflow === null) {
+    return {
+      ...baseResult,
+      nodeWarnings,
+      credentialGaps,
+      complexityScore: 0,
+    };
+  }
+
+  const wf = workflow as N8nWorkflow;
+
+  if (!wf.nodes || !Array.isArray(wf.nodes)) {
+    return {
+      ...baseResult,
+      nodeWarnings,
+      credentialGaps,
+      complexityScore: 0,
+    };
+  }
+
+  // Check each node for specific warnings
+  for (const node of wf.nodes) {
+    const warnings: string[] = [];
+
+    // Check for credential requirements
+    const requiredCred = CREDENTIAL_REQUIREMENTS[node.type];
+    if (requiredCred) {
+      credentialGaps.push(requiredCred);
+      warnings.push(`Needs ${requiredCred} credential`);
+    }
+
+    // Check for missing configuration on action nodes
+    if (!TRIGGER_NODE_TYPES.includes(node.type)) {
+      const hasParams = node.parameters && Object.keys(node.parameters).length > 0;
+      if (!hasParams) {
+        warnings.push('Missing configuration');
+      }
+    }
+
+    if (warnings.length > 0) {
+      nodeWarnings.set(node.name, warnings);
+    }
+  }
+
+  // Calculate complexity score (1-10)
+  const complexityScore = calculateComplexity(wf);
+
+  return {
+    ...baseResult,
+    nodeWarnings,
+    credentialGaps: [...new Set(credentialGaps)], // Dedupe
+    complexityScore,
+  };
+}
+
+/**
+ * Calculate workflow complexity score (1-10)
+ */
+function calculateComplexity(workflow: N8nWorkflow): number {
+  const nodeCount = workflow.nodes?.length ?? 0;
+  const hasConditionals = workflow.nodes?.some(
+    (n) => n.type === 'n8n-nodes-base.if' || n.type === 'n8n-nodes-base.switch'
+  );
+
+  let score = Math.min(nodeCount, 7);
+  if (hasConditionals) score += 2;
+
+  return Math.min(score, 10);
 }
