@@ -62,6 +62,8 @@ User Chat → Next.js API → Claude + n8n MCP → User's n8n Instance → Workf
 - **React Flow v12 icons**: Can't dynamically import Lucide icons via `Icons[name]`; use explicit ICON_MAP constant
 - **N8n Nerd Process**: 7-step internal quality system (see ADR-004) - invisible to users, produces production-ready workflows
 - **Prompt injection first principles**: Only inject semantic guidance (Steps 1-4) into prompts; don't duplicate layout/validation rules that exist in code
+- **Supabase strict mode**: `data` property is `any`; avoid destructuring `{ data }`, instead use `result.data as Type` to satisfy strict ESLint
+- **AI SDK v6 messages**: Use `messages:` not `initialMessages:` option in `useChat()` hook for initial messages
 
 ## Commands
 

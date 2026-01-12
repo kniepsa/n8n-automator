@@ -14,13 +14,13 @@ As a user, I want my chat history saved so I can resume conversations and refere
 
 ## Acceptance Criteria
 
-- [ ] Conversations saved to database automatically
-- [ ] Conversation list in sidebar
-- [ ] Click to load previous conversation
-- [ ] New conversation button
-- [ ] Conversation title auto-generated
-- [ ] Delete conversation option
-- [ ] Messages load on conversation select
+- [x] Conversations saved to database automatically
+- [x] Conversation list in sidebar
+- [x] Click to load previous conversation
+- [x] New conversation button
+- [x] Conversation title auto-generated
+- [x] Delete conversation option
+- [x] Messages load on conversation select
 
 ## Technical Implementation
 

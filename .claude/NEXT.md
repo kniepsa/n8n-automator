@@ -2,14 +2,10 @@
 
 ## Now
 
-- [ ] **Conversation History (F-006)** - Save/resume chat sessions in Supabase
-  - Sidebar with conversation list
-  - Auto-generated conversation titles
-  - See: `.claude/features/F-006-conversation-history.md`
+- [ ] Iterate with feedback ("add X", "remove Y" updates workflow)
 
 ## Up Next
 
-- [ ] Iterate with feedback ("add X", "remove Y" updates workflow)
 - [ ] Favorites system (localStorage) for tool preferences
 
 ## Backlog
@@ -24,6 +20,12 @@
 
 ## Done (2026-01)
 
+- [x] **Conversation History (F-006)** - Persistent chat sessions with sidebar
+  - Supabase tables: `conversations`, `messages` with RLS
+  - Auto-save with 500ms debounce after streaming
+  - Collapsible sidebar with conversation list
+  - Resume existing conversations at `/chat/[id]`
+  - Auto-generated titles from first user message
 - [x] **N8n Nerd Process (ADR-004)** - Inject Steps 1-4 into system prompt (first principles: only semantic guidance, trust existing code for layout/validation)
 - [x] **F-010: Visual Workflow Preview (YSIYG)** - React Flow visual preview (9/9 criteria)
   - React Flow node graph with dagre auto-layout

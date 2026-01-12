@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { UserMenu } from '@/components/auth/user-menu';

@@ -13,8 +13,13 @@ export default [
       globals: {
         React: 'readonly',
         setTimeout: 'readonly',
+        clearTimeout: 'readonly',
         console: 'readonly',
         process: 'readonly',
+        fetch: 'readonly',
+        window: 'readonly',
+        navigator: 'readonly',
+        Buffer: 'readonly',
       },
     },
   },

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
+// Note: Supabase client returns untyped data without generated DB types
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { encryptApiKey, decryptApiKey } from '@/lib/crypto';
@@ -40,9 +42,13 @@ export async function GET(): Promise<NextResponse<N8nSettings | { error: string 
     return NextResponse.json({ error: 'Failed to fetch settings' }, { status: 500 });
   }
 
+  const typedProfile = profile as {
+    n8n_host: string | null;
+    n8n_api_key_encrypted: string | null;
+  } | null;
   return NextResponse.json({
-    n8n_host: profile?.n8n_host ?? null,
-    has_api_key: !!profile?.n8n_api_key_encrypted,
+    n8n_host: typedProfile?.n8n_host ?? null,
+    has_api_key: !!typedProfile?.n8n_api_key_encrypted,
   });
 }
 
@@ -171,13 +177,17 @@ export async function getN8nCredentials(
     .eq('id', userId)
     .single();
 
-  if (!profile?.n8n_host || !profile?.n8n_api_key_encrypted) {
+  const typedProfile = profile as {
+    n8n_host: string | null;
+    n8n_api_key_encrypted: string | null;
+  } | null;
+  if (!typedProfile?.n8n_host || !typedProfile?.n8n_api_key_encrypted) {
     return null;
   }
 
   try {
-    const apiKey = decryptApiKey(profile.n8n_api_key_encrypted);
-    return { host: profile.n8n_host, apiKey };
+    const apiKey = decryptApiKey(typedProfile.n8n_api_key_encrypted);
+    return { host: typedProfile.n8n_host, apiKey };
   } catch {
     console.error('Failed to decrypt n8n API key');
     return null;

@@ -13,8 +13,8 @@
 - **No "Forgot password" link**: Add password reset flow
 - **No loading state on auth forms**: Add spinner to buttons during submit
 - **No live test run from UI**: Can't trigger and see workflow execution from app (deferred to v2)
-- **No session memory for chat**: Can't return and continue previous conversation
 - **MCP list_credentials**: Confirmed NOT supported by n8n-builder MCP (error -32601: Unknown tool). Flow handles gracefully with "Continue anyway" button
+- **React Flow edge warnings**: Console spam from `Couldn't create edge for source handle id: "output-0"` (cosmetic, doesn't affect functionality)
 
 ---
 

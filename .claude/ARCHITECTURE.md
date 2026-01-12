@@ -41,6 +41,15 @@
 - **n8n MCP Client** (`lib/n8n/mcp-client.ts`): Manages MCP connection to n8n-builder
 - **Prompts** (`lib/n8n/prompts.ts`): System prompts with constraints + context injection
 
+### Conversation History (F-006)
+
+- **Conversations API** (`/api/conversations`): List, create, update, delete conversations
+- **Messages API** (`/api/conversations/[id]/messages`): Batch message persistence
+- **Conversation Sidebar** (`components/layout/conversation-sidebar.tsx`): Collapsible list with delete
+- **Auto-Save Hook** (`lib/conversations/use-auto-save.ts`): Debounced (500ms) message persistence
+- **Chat Layout** (`app/chat/layout.tsx`): Flex layout with sidebar + main content
+- **Conversation Types** (`lib/conversations/types.ts`): ChatPhase, Conversation, StoredMessage
+
 ### Visual Preview (F-010)
 
 - **WorkflowPreview** (`workflow-preview/WorkflowPreview.tsx`): React Flow container with zoom/pan/minimap
@@ -168,4 +177,4 @@ This creates:
 For now: Ship current chat-first approach, validate with users, then consider pivot.
 -->
 
-_Last updated: 2026-01-12 (N8n Nerd Process implemented in prompts.ts)_
+_Last updated: 2026-01-12 (F-006 Conversation History verified)_

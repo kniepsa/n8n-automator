@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useMemo, useEffect, useRef } from 'react';
+import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import { useChat } from '@ai-sdk/react';
-import { DefaultChatTransport } from 'ai';
+import { DefaultChatTransport, type UIMessage } from 'ai';
 import { MessageList } from './message-list';
 import { MessageInput } from './message-input';
 import { GoalInput } from './goal-input';
@@ -11,22 +12,52 @@ import { CredentialGapCheck } from './credential-gap-check';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { type WorkflowContext, type ResearchResult } from '@/lib/n8n/prompts';
+import { useAutoSave } from '@/lib/conversations/use-auto-save';
+import type { ChatPhase, StoredMessage } from '@/lib/conversations/types';
 
 type QualityMode = 'fast' | 'thorough';
-type ChatPhase = 'goal' | 'researching' | 'tools' | 'credentials' | 'chat';
 
-export function ChatInterface(): React.ReactElement {
+interface ChatInterfaceProps {
+  conversationId: string | null;
+  initialMessages?: StoredMessage[];
+  initialPhase?: ChatPhase;
+  initialContext?: WorkflowContext | null;
+  initialGoal?: string | null;
+}
+
+// Convert stored messages to UIMessage format
+function storedToUIMessages(stored: StoredMessage[]): UIMessage[] {
+  return stored.map((msg) => ({
+    id: msg.id,
+    role: msg.role,
+    parts: msg.parts,
+    createdAt: new Date(msg.created_at),
+  }));
+}
+
+export function ChatInterface({
+  conversationId,
+  initialMessages = [],
+  initialPhase = 'goal',
+  initialContext = null,
+  initialGoal = null,
+}: ChatInterfaceProps): React.ReactElement {
+  const router = useRouter();
   const [input, setInput] = useState('');
   const [mode, setMode] = useState<QualityMode>('fast');
-  const [context, setContext] = useState<WorkflowContext | null>(null);
-  const [phase, setPhase] = useState<ChatPhase>('goal');
-  const [availableTools, setAvailableTools] = useState<string[]>([]);
+  const [context, setContext] = useState<WorkflowContext | null>(initialContext);
+  const [phase, setPhase] = useState<ChatPhase>(initialPhase);
+  const [availableTools, setAvailableTools] = useState<string[]>(initialContext?.tools || []);
   const [pendingGoal, setPendingGoal] = useState<string | null>(null);
-  const [goal, setGoal] = useState<string>('');
+  const [goal, setGoal] = useState<string>(initialGoal || '');
   const [researchResult, setResearchResult] = useState<ResearchResult | null>(null);
-  const [selectedTools, setSelectedTools] = useState<string[]>([]);
+  const [selectedTools, setSelectedTools] = useState<string[]>(initialContext?.tools || []);
   const [researchError, setResearchError] = useState<string | null>(null);
+  const [currentConversationId, setCurrentConversationId] = useState<string | null>(conversationId);
   const hasSentInitialMessage = useRef(false);
+
+  // Convert initial messages to UIMessage format
+  const initialUIMessages = useMemo(() => storedToUIMessages(initialMessages), [initialMessages]);
 
   const transport = useMemo(
     () =>
@@ -41,9 +72,41 @@ export function ChatInterface(): React.ReactElement {
     [mode, context, availableTools]
   );
 
-  const { messages, sendMessage, status, error } = useChat({ transport });
+  const { messages, sendMessage, status, error, setMessages } = useChat({
+    transport,
+    messages: initialUIMessages,
+  });
 
   const isLoading = status === 'streaming' || status === 'submitted';
+
+  // Handle conversation creation callback
+  const handleConversationCreated = useCallback(
+    (id: string) => {
+      setCurrentConversationId(id);
+      // Update URL without full navigation
+      router.replace(`/chat/${id}`, { scroll: false });
+    },
+    [router]
+  );
+
+  // Auto-save integration
+  useAutoSave({
+    conversationId: currentConversationId,
+    messages,
+    phase,
+    context,
+    goal,
+    onConversationCreated: handleConversationCreated,
+  });
+
+  // Skip to chat phase if loading existing conversation with messages
+  useEffect(() => {
+    if (conversationId && initialMessages.length > 0 && phase !== 'chat') {
+      // This is a loaded conversation, skip directly to chat
+      setPhase('chat');
+      hasSentInitialMessage.current = true;
+    }
+  }, [conversationId, initialMessages.length, phase]);
 
   // Auto-send the goal as first message when entering chat phase
   useEffect(() => {
@@ -139,7 +202,7 @@ export function ChatInterface(): React.ReactElement {
     setPhase('tools');
   };
 
-  // Reset to beginning
+  // Reset to beginning (new conversation)
   const handleReset = (): void => {
     setPhase('goal');
     setGoal('');
@@ -148,7 +211,11 @@ export function ChatInterface(): React.ReactElement {
     setAvailableTools([]);
     setContext(null);
     setPendingGoal(null);
+    setCurrentConversationId(null);
+    setMessages([]);
     hasSentInitialMessage.current = false;
+    // Navigate to fresh chat
+    router.push('/chat');
   };
 
   // Phase 1: Goal input

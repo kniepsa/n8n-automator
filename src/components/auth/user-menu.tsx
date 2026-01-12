@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
 'use client';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/button';
 
@@ -32,8 +34,7 @@ export function UserMenu({ email, avatarUrl }: UserMenuProps): React.ReactElemen
         className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground transition-colors hover:bg-primary/90"
       >
         {avatarUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={avatarUrl} alt={email} className="h-9 w-9 rounded-full" />
+          <Image src={avatarUrl} alt={email} width={36} height={36} className="rounded-full" />
         ) : (
           <span className="text-sm font-medium">{initials}</span>
         )}
