@@ -2,23 +2,33 @@
 
 ## Now
 
-- [ ] Favorites system (localStorage) for tool preferences
+- [ ] **F-010: Visual Workflow Preview (YSIYG)** - React Flow preview before deploy
+  - Users SEE the workflow visually (not JSON)
+  - Node graph with icons, connections, branch labels
+  - Sleek n8n-style aesthetic
+  - "Trust what you see" before deploying
+  - See: `.claude/features/F-010-visual-workflow-preview.md`
 
 ## Up Next
 
-- [ ] Verify MCP list_credentials tool works (currently returns error, needs n8n-builder update)
+- [ ] **N8n Nerd Process** - Internal quality system (invisible to users)
+  - 7-step systematic generation: Intent → Decompose → Node Select → Error Armor → Layout → Validate → Output
+  - Produces production-ready workflows, not prototypes
+  - Users see simple explanations, Claude does the heavy lifting
+  - See: `.claude/decisions/004-n8n-nerd-process.md`
 - [ ] Conversation history (F-006) - Save/resume chat sessions
 - [ ] Iterate with feedback ("add X", "remove Y" updates workflow)
-- [ ] Google OAuth configuration (Supabase Dashboard + Google Cloud Console)
+- [ ] Favorites system (localStorage) for tool preferences
 
 ## Backlog
 
+- [ ] Verify MCP list_credentials tool works (currently returns error)
+- [ ] Google OAuth configuration (Supabase Dashboard + Google Cloud Console)
 - [ ] Swipe gestures for tool selector (v2)
 - [ ] Supabase sync for favorites (v2)
 - [ ] Live MCP Access - Context7/Serper (F-009) - Potential paid feature
 - [ ] Custom template builder for power users
 - [ ] Template marketplace (user submissions)
-- [ ] Visual workflow editor (React Flow)
 
 ## Done (2026-01)
 

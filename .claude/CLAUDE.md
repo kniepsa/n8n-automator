@@ -56,6 +56,9 @@ User Chat → Next.js API → Claude + n8n MCP → User's n8n Instance → Workf
 - **Target niche**: "Non-technical self-hosted n8n users" - only segment without AI workflow builder option (cloud-only)
 - **Goal-first flow**: 5 phases (goal → research → tools → credentials → chat) - AI suggests tools before user picks them
 - **Research prompt**: Must output strict JSON format; use `parseResearchResult()` to extract from markdown code blocks
+- **YSIYG principle**: Users need to SEE workflows visually before deploy (React Flow), not JSON - reduces trust gap
+- **React Flow v12**: Package is now `@xyflow/react` not `react-flow-renderer`
+- **N8n Nerd Process**: 7-step internal quality system (see ADR-004) - invisible to users, produces production-ready workflows
 
 ## Commands
 

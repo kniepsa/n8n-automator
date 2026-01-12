@@ -129,8 +129,11 @@ workflows (
 - `ChatInterface` - Main chat UI with useChat()
 - `MessageList` - Renders conversation history
 - `MessageInput` - User input with send button
-- `WorkflowPreview` - JSON/visual workflow display
+- `WorkflowPreview` - Visual workflow display (React Flow) - F-010
 - `SettingsPanel` - n8n connection configuration
+- `GoalInput` - Single-field goal entry with examples
+- `ToolSelector` - Card-based tool selection UI
+- `CredentialGapCheck` - Shows connected vs missing tools
 
 ### Backend
 
@@ -156,9 +159,18 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 
 ## Technology Decisions
 
-See `/decisions/001-tech-stack.md` for rationale on:
+See `/decisions/` for rationale:
 
-- Next.js 14 over alternatives
-- Supabase over Firebase/custom
-- Vercel AI SDK over direct API
-- Claude over GPT-4
+- ADR-001: Tech Stack (Next.js, Supabase, Vercel AI SDK, Claude)
+- ADR-002: Quality Modes (Fast vs Thorough prompts)
+- ADR-003: Goal-First Flow (5-phase onboarding)
+- ADR-004: N8n Nerd Process (7-step workflow generation)
+
+## Planned Components (F-010)
+
+- `WorkflowPreview` - React Flow visual preview (@xyflow/react)
+- `N8nNode` - Custom node component matching n8n aesthetic
+- `N8nEdge` - Animated connection lines
+- `WorkflowStats` - Node count, trigger type badge
+
+*Last updated: 2026-01-12*

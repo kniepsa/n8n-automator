@@ -14,7 +14,7 @@
 - **No loading state on auth forms**: Add spinner to buttons during submit
 - **No live test run from UI**: Can't trigger and see workflow execution from app (deferred to v2)
 - **No session memory for chat**: Can't return and continue previous conversation
-- **MCP list_credentials**: Need to verify n8n-builder MCP server supports this tool (may need fallback)
+- **MCP list_credentials**: Confirmed NOT supported by n8n-builder MCP (error -32601: Unknown tool). Flow handles gracefully with "Continue anyway" button
 
 ---
 
