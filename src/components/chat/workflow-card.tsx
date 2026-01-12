@@ -2,9 +2,11 @@
 
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { DeployCelebration } from './deploy-celebration';
 import type { N8nWorkflow } from '@/lib/workflow/types';
 
 // Dynamically import WorkflowPreview to avoid SSR issues with React Flow
@@ -60,9 +62,11 @@ function getTriggerInstructions(nodes: N8nWorkflow['nodes']): string {
 }
 
 export function WorkflowCard({ workflow }: WorkflowCardProps): React.ReactElement {
+  const router = useRouter();
   const [isDeploying, setIsDeploying] = useState(false);
   const [deployResult, setDeployResult] = useState<DeployResult | null>(null);
   const [showJson, setShowJson] = useState(false);
+  const [showCelebration, setShowCelebration] = useState(false);
 
   const nodeCount = workflow.nodes.length;
   const nodeCountColor =
@@ -81,6 +85,9 @@ export function WorkflowCard({ workflow }: WorkflowCardProps): React.ReactElemen
 
       const result = (await response.json()) as DeployResult;
       setDeployResult(result);
+      if (result.success) {
+        setShowCelebration(true);
+      }
     } catch (error) {
       setDeployResult({
         success: false,
@@ -180,6 +187,18 @@ export function WorkflowCard({ workflow }: WorkflowCardProps): React.ReactElemen
           Copy
         </Button>
       </div>
+
+      {/* Celebration Modal */}
+      <DeployCelebration
+        isOpen={showCelebration}
+        workflowName={workflow.name}
+        workflowUrl={deployResult?.workflowUrl}
+        onClose={() => setShowCelebration(false)}
+        onBuildAnother={() => {
+          setShowCelebration(false);
+          router.push('/chat');
+        }}
+      />
     </Card>
   );
 }

@@ -2,21 +2,41 @@
 
 ## Now
 
-- [ ] Test deployed app on Vercel, iterate with user feedback
+- [ ] F-011: Post-Deploy Celebration - confetti, success modal, "Build Another" flow
 
 ## Up Next
 
-- [ ] Favorites system (localStorage) for tool preferences
+- [ ] F-012: Workflow Health Dashboard - see deployed workflows, status, last run
+- [ ] F-013: One-Click Test - trigger workflow from app
 
 ## Backlog
 
-- [ ] Verify MCP list_credentials tool works (currently returns error)
-- [ ] Google OAuth configuration (Supabase Dashboard + Google Cloud Console)
-- [ ] Swipe gestures for tool selector (v2)
-- [ ] Supabase sync for favorites (v2)
-- [ ] Live MCP Access - Context7/Serper (F-009) - Potential paid feature
-- [ ] Custom template builder for power users
-- [ ] Template marketplace (user submissions)
+### P1 - Delight & Stickiness
+
+- [ ] F-014: Smart Error Suggestions - Claude analyzes failures, suggests fixes
+- [ ] F-015: Natural Language Editing - "Add a filter step" modifies workflow
+- [ ] F-016: Workflow Cloning - "Make another like this but for Slack"
+
+### P2 - Growth & Retention
+
+- [ ] F-017: Workflow Recommendations - "People who built this also built..."
+- [ ] F-018: Scheduled Health Alerts - "Your webhook hasn't run in 7 days"
+- [ ] F-019: Team Sharing - Share workflows with teammates
+- [ ] F-020: Auto Documentation - Generate docs for your workflow
+
+### P3 - Future Vision
+
+- [ ] F-009: Live MCP Access - Context7/Serper (paid feature)
+- [ ] F-021: Voice Input - Describe automation by speaking
+- [ ] F-022: Mobile Companion - Push notifications for workflow runs
+- [ ] F-023: Template Marketplace - User submissions with ratings
+- [ ] F-024: Credential Expiry Alerts - Proactive token refresh warnings
+
+### Technical Debt
+
+- [ ] Verify MCP list_credentials tool (currently errors)
+- [ ] Google OAuth configuration (Supabase + GCP)
+- [ ] Favorites system (localStorage + Supabase sync)
 
 ## Done (2026-01)
 
