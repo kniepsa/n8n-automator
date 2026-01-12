@@ -61,6 +61,7 @@ User Chat → Next.js API → Claude + n8n MCP → User's n8n Instance → Workf
 - **React Flow v12 types**: Data interfaces must `extend Record<string, unknown>`; use `Node<Data, 'type'>` not just `NodeProps<Data>`
 - **React Flow v12 icons**: Can't dynamically import Lucide icons via `Icons[name]`; use explicit ICON_MAP constant
 - **N8n Nerd Process**: 7-step internal quality system (see ADR-004) - invisible to users, produces production-ready workflows
+- **Prompt injection first principles**: Only inject semantic guidance (Steps 1-4) into prompts; don't duplicate layout/validation rules that exist in code
 
 ## Commands
 

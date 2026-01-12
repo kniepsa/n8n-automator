@@ -2,15 +2,13 @@
 
 ## Now
 
-- [ ] **N8n Nerd Process** - Internal quality system (invisible to users)
-  - 7-step systematic generation: Intent → Decompose → Node Select → Error Armor → Layout → Validate → Output
-  - Produces production-ready workflows, not prototypes
-  - Users see simple explanations, Claude does the heavy lifting
-  - See: `.claude/decisions/004-n8n-nerd-process.md`
+- [ ] **Conversation History (F-006)** - Save/resume chat sessions in Supabase
+  - Sidebar with conversation list
+  - Auto-generated conversation titles
+  - See: `.claude/features/F-006-conversation-history.md`
 
 ## Up Next
 
-- [ ] Conversation history (F-006) - Save/resume chat sessions
 - [ ] Iterate with feedback ("add X", "remove Y" updates workflow)
 - [ ] Favorites system (localStorage) for tool preferences
 
@@ -26,6 +24,7 @@
 
 ## Done (2026-01)
 
+- [x] **N8n Nerd Process (ADR-004)** - Inject Steps 1-4 into system prompt (first principles: only semantic guidance, trust existing code for layout/validation)
 - [x] **F-010: Visual Workflow Preview (YSIYG)** - React Flow visual preview (9/9 criteria)
   - React Flow node graph with dagre auto-layout
   - N8n-style nodes with category colors (trigger/action/logic/transform)

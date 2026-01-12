@@ -115,10 +115,25 @@
 
 ## Quality Modes
 
-| Mode     | Tokens | Content                        |
-| -------- | ------ | ------------------------------ |
-| Fast     | ~500   | Base prompt only               |
-| Thorough | ~2000  | + pre-baked node JSON examples |
+| Mode     | Tokens | Content                                                |
+| -------- | ------ | ------------------------------------------------------ |
+| Fast     | ~580   | Base prompt + N8n Nerd Process (condensed, ~80 tokens) |
+| Thorough | ~2200  | + N8n Nerd Process (full, ~200 tokens) + Node examples |
+
+### N8n Nerd Process (ADR-004)
+
+Injected into system prompt - Steps 1-4 only (semantic guidance):
+
+1. **Intent**: Parse trigger type, inputs, outputs
+2. **Decompose**: [TRIGGER] → [TRANSFORM?] → [CONDITION?] → [ACTION] → [OUTPUT?]
+3. **Node Select**: Native > HTTP Request > Code
+4. **Error Armor**: Complexity-based (2-3 nodes: none, 4-5: error output, 6+: try/catch)
+
+Steps 5-7 handled by existing code:
+
+- **Layout**: `auto-layout.ts` (dagre)
+- **Validate**: `validator.ts`
+- **Output**: Existing prompt format
 
 ## Target User
 
@@ -153,4 +168,4 @@ This creates:
 For now: Ship current chat-first approach, validate with users, then consider pivot.
 -->
 
-_Last updated: 2026-01-12 (ADR-005: Joe Gebbia Critique, Future Direction comment added)_
+_Last updated: 2026-01-12 (N8n Nerd Process implemented in prompts.ts)_
