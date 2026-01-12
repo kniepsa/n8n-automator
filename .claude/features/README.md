@@ -11,11 +11,11 @@ This folder contains feature specifications for n8n-automator.
 | F-003 | Workflow Generation     | P0       | Done    |
 | F-004 | Auth                    | P0       | Done    |
 | F-005 | n8n Connection          | P0       | Done    |
-| F-006 | Conversation History    | P1       | Pending |
+| F-006 | Conversation History    | P1       | Done    |
 | F-007 | Workflow Preview (JSON) | P1       | Done    |
 | F-008 | Deploy to n8n           | P1       | Done    |
 | F-009 | Live MCP Access         | P2       | Pending |
-| F-010 | Visual Workflow Preview | P0       | **NOW** |
+| F-010 | Visual Workflow Preview | P0       | Done    |
 
 ## Priority Legend
 

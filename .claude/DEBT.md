@@ -15,6 +15,7 @@
 - **No live test run from UI**: Can't trigger and see workflow execution from app (deferred to v2)
 - **MCP list_credentials**: Confirmed NOT supported by n8n-builder MCP (error -32601: Unknown tool). Flow handles gracefully with "Continue anyway" button
 - **React Flow edge warnings**: Console spam from `Couldn't create edge for source handle id: "output-0"` (cosmetic, doesn't affect functionality)
+- **Generate Supabase DB types**: Currently using eslint-disable comments; run `npx supabase gen types` for proper type safety
 
 ---
 

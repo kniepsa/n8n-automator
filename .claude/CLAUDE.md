@@ -64,6 +64,8 @@ User Chat → Next.js API → Claude + n8n MCP → User's n8n Instance → Workf
 - **Prompt injection first principles**: Only inject semantic guidance (Steps 1-4) into prompts; don't duplicate layout/validation rules that exist in code
 - **Supabase strict mode**: `data` property is `any`; avoid destructuring `{ data }`, instead use `result.data as Type` to satisfy strict ESLint
 - **AI SDK v6 messages**: Use `messages:` not `initialMessages:` option in `useChat()` hook for initial messages
+- **Supabase SSR types**: `SupabaseClient` must import from `@supabase/supabase-js`, not `@supabase/ssr` (causes TS2305)
+- **Supabase without DB types**: Add `eslint-disable @typescript-eslint/no-unsafe-*` to files using Supabase until generating DB types
 
 ## Commands
 

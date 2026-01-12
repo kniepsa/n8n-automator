@@ -2,7 +2,7 @@
 
 ## Now
 
-- [ ] Iterate with feedback ("add X", "remove Y" updates workflow)
+- [ ] Test deployed app on Vercel, iterate with user feedback
 
 ## Up Next
 
