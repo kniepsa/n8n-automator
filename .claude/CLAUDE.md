@@ -58,6 +58,8 @@ User Chat → Next.js API → Claude + n8n MCP → User's n8n Instance → Workf
 - **Research prompt**: Must output strict JSON format; use `parseResearchResult()` to extract from markdown code blocks
 - **YSIYG principle**: Users need to SEE workflows visually before deploy (React Flow), not JSON - reduces trust gap
 - **React Flow v12**: Package is now `@xyflow/react` not `react-flow-renderer`
+- **React Flow v12 types**: Data interfaces must `extend Record<string, unknown>`; use `Node<Data, 'type'>` not just `NodeProps<Data>`
+- **React Flow v12 icons**: Can't dynamically import Lucide icons via `Icons[name]`; use explicit ICON_MAP constant
 - **N8n Nerd Process**: 7-step internal quality system (see ADR-004) - invisible to users, produces production-ready workflows
 
 ## Commands

@@ -37,9 +37,21 @@
 - **Workflow Card** (`chat/workflow-card.tsx`): Visual preview + 1-click deploy in chat
 - **Chat API** (`/api/chat`): Claude with n8n MCP tools, context injection, quality mode
 - **Credentials API** (`/api/n8n/credentials`): Lists credentials from n8n via MCP
-- **Workflow Validator** (`lib/n8n/validator.ts`): Validates workflow JSON before deploy
+- **Workflow Validator** (`lib/n8n/validator.ts`): Validates workflow JSON with node-level warnings
 - **n8n MCP Client** (`lib/n8n/mcp-client.ts`): Manages MCP connection to n8n-builder
 - **Prompts** (`lib/n8n/prompts.ts`): System prompts with constraints + context injection
+
+### Visual Preview (F-010)
+
+- **WorkflowPreview** (`workflow-preview/WorkflowPreview.tsx`): React Flow container with zoom/pan/minimap
+- **N8nNode** (`workflow-preview/N8nNode.tsx`): Custom node with category colors and icons
+- **N8nEdge** (`workflow-preview/N8nEdge.tsx`): Bezier curve edges with conditional styling
+- **WorkflowSummary** (`workflow-preview/WorkflowSummary.tsx`): Plain English step descriptions
+- **ValidationWarnings** (`workflow-preview/ValidationWarnings.tsx`): Warning/error badges
+- **convert-to-reactflow** (`lib/workflow/convert-to-reactflow.ts`): N8n JSON → React Flow format
+- **auto-layout** (`lib/workflow/auto-layout.ts`): Dagre-based left-to-right layout
+- **node-icons** (`lib/workflow/node-icons.ts`): Icon and category color mappings
+- **summarize** (`lib/workflow/summarize.ts`): BFS traversal for plain English descriptions
 
 ### Templates (Quick Wins)
 
@@ -112,4 +124,4 @@
 
 **Non-technical person using SELF-HOSTED n8n** - the only segment without an AI workflow builder option (n8n native AI is cloud-only).
 
-_Last updated: 2026-01-12 (goal-first flow: goal → AI research → tool selector → credentials → chat)_
+_Last updated: 2026-01-12 (F-010: React Flow visual preview with dagre layout, plain English summary)_
